@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="public" template="/WEB-INF/view/templates/imixcms/shablon2.jsp">
+        <put-attribute name="titleKey" value="programm.defaultkey"/>
+        <put-attribute name="header" value="/WEB-INF/view/templates/imixcms/header.jsp"/>
+        <put-attribute name="leftBar" value="/WEB-INF/view/templates/imixcms/leftBar.jsp"/>
+        <put-attribute name="navigation" value="/WEB-INF/view/templates/imixcms/navigation.jsp"/>
+        <put-attribute name="contentblock1" value=""/>
+        <put-attribute name="contentblock2" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/view/templates/imixcms/footer.jsp"/>
+    </definition>
+
+    <!--<definition extends="public" name="viewPage">-->
+    <!--<put-attribute name="content" value="/WEB-INF/view/pageView.jsp"/>-->
+    <!--</definition>-->
+
+    <!--<definition name="viewPage" template="/WEB-INF/view/pageView.jsp">-->
+    <!--</definition>-->
+
+    <!--<definition extends="public" name="allContentPage">-->
+    <!--<put-attribute name="titleKey" value="programm.addMenu" />-->
+    <!--<put-attribute name="content" value="/WEB-INF/view/manager/allContentPage.jsp"/>-->
+    <!--</definition>-->
+
+    <definition extends="public" name="firstPage">
+        <put-attribute name="leftBar" value=""/>
+        <put-attribute name="contentblock1" value="/WEB-INF/view/templates/imixcms/block/header-block.jsp"/>
+        <put-attribute name="contentblock2" value="/WEB-INF/view/firstPage.jsp"/>
+    </definition>
+    <!--<definition name="firstPage" template="/WEB-INF/view/firstPage.jsp">-->
+    <!--</definition>-->
+
+
+    <!--<definition name="helloblock" template="/WEB-INF/view/templates/temp2.jsp">-->
+    <!--</definition>-->
+
+
+    <!--<definition name="allContentPage" template="/WEB-INF/view/manager/allContentPage.jsp">-->
+    <!--</definition>-->
+
+    <definition extends="public" name="success">
+        <put-attribute name="leftBar" value=""/>
+        <put-attribute name="contentblock2" value="/WEB-INF/view/success.jsp"/>
+    </definition>
+    <!--<definition name="success" template="/WEB-INF/view/success.jsp">-->
+    <!--</definition>-->
+
+    <definition extends="public" name="initDataBase">
+        <put-attribute name="leftBar" value=""/>
+        <put-attribute name="contentblock1" value="/WEB-INF/view/templates/imixcms/block/header-block.jsp"/>
+        <put-attribute name="contentblock2" value="/WEB-INF/view/initDataBase.jsp"/>
+    </definition>
+    <!--<definition name="initDataBase" template="/WEB-INF/view/initDataBase.jsp">-->
+    <!--</definition>-->
+
+    <definition extends="public" name="error">
+        <put-attribute name="leftBar" value=""/>
+        <put-attribute name="contentblock2" value="/WEB-INF/view/template/error.jsp"/>
+    </definition>
+
+    <!--<definition extends="public" name="alldynamiccontents">-->
+    <!--<put-attribute name="content" value="/WEB-INF/view/manager/dynamicpage/alldynamiccontents.jsp"/>-->
+    <!--</definition>-->
+
+    <!--<definition extends="public" name="alltemplates">-->
+    <!--<put-attribute name="content" value="/WEB-INF/view/manager/dynamicpage/allTemplates.jsp"/>-->
+    <!--</definition>-->
+</tiles-definitions>

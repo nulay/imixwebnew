@@ -1,0 +1,30 @@
+application:
+  api:
+    title: 'Prototype Tests'
+    description: 'Пример модульных тестов в проекте Spring Boot'
+    version: '@project.version@'
+    contact-email: nulay@mail.ru
+    api-base-packages: 'by.imix.prototype.proto.controllers'
+  endpoint:
+    external-hostname: localhost
+    external-url: http://localhost/
+eureka:
+  client:
+    enabled: false
+spring:
+  application:
+    name: '@project.artifactId@'
+  main:
+    banner-mode: off
+  config:
+    activate:
+      on-profile: test
+  cloud:
+    vault:
+      enabled: false
+logging:
+  http:
+    enabled: true
+    log-level: info
+    log-body: true
+    use-logstash: false

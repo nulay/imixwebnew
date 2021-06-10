@@ -1,0 +1,12 @@
+application:
+  profiles:
+    active: local
+
+spring:
+  application:
+    name: '@project.artifactId@'
+  cloud:
+    vault:
+      enabled: false
+      kv:
+        application-name: ${spring.application.name}

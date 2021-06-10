@@ -1,0 +1,4 @@
+include:
+#  project где находится проект с скриптами ubn gitlab
+- project: project/ci/gitlab-ci
+  file: /src/ci/templates/docker-app.gitlab-ci.yml

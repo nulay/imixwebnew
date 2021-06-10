@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%7.7t] %5level %30.30c{0} - [%X{testName:--}] %msg%n</Pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+    <logger name="by.imix.prototype.proto" level="debug"/>
+    <root level="info">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

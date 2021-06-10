@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <springProperty name="spring.application.name" source="spring.application.name"/>
+    <springProperty name="logging.level.root" source="logging.level.root" defaultValue="INFO"/>
+    <springProfile name="default">
+        <springProperty name="logging.pattern.console" source="logging.pattern.console"/>
+        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${logging.pattern.console}</pattern>
+                <charset>${logging.charset.console:-utf-8}</charset>
+            </encoder>
+        </appender>
+        <root level="${logging.level.root}">
+            <appender-ref ref="stdout"/>
+        </root>
+    </springProfile>
+    <springProfile name="logstash">
+        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp/>
+                    <pattern>
+                        <pattern>{"application_name":"${spring.application.name}"}</pattern>
+                    </pattern>
+                    <mdc/>
+                    <logLevel/>
+                    <threadName/>
+                    <loggerName/>
+                    <message/>
+                    <stackTrace>
+                        <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                            <maxLength>2147483647</maxLength>
+                            <exclude>sun\.reflect\..*\.invoke.*</exclude>
+                            <exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+                            <inlineHash>true</inlineHash>
+                        </throwableConverter>
+                    </stackTrace>
+                    <stackHash/>
+                    <throwableClassName/>
+                    <throwableRootCauseClassName/>
+                    <arguments>
+                        <includeNonStructuredArguments>true</includeNonStructuredArguments>
+                    </arguments>
+                </providers>
+                <jsonGeneratorDecorator class="net.logstash.logback.decorate.NullJsonGeneratorDecorator"/>
+            </encoder>
+        </appender>
+        <root level="${logging.level.root}">
+            <appender-ref ref="stdout"/>
+        </root>
+    </springProfile>
+
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n" />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

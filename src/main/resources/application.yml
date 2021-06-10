@@ -1,0 +1,113 @@
+server:
+  port: ${PORT:5000}
+  address: 0.0.0.0
+
+application:
+  api:
+    title: 'Imix-hikar'
+    description: 'Пример REST-сервиса, реализованного на Spring Boot'
+    version: '@project.version@'
+    contact-email: nulay@mail.ru
+    api-base-packages: 'by.imix.prototype.proto.controllers'
+  endpoint:
+    externalURL: http://${application.endpoint.external-hostname}:${server.port}/
+    external-hostname: imix.by
+  thymeleaf:
+    mode: HTML
+  profiles:
+    active: default
+eureka:
+  client:
+    enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+spring:
+  application:
+    name: '@project.artifactId@'
+  main:
+    banner-mode: off
+  # Spring data source needed for Spring boot to behave
+  # Pre Spring Boot v2.0.0.M6 without below Spring Boot defaults to tomcat-jdbc connection pool included
+  # in spring-boot-starter-jdbc and as compiled dependency under spring-boot-starter-data-jpa
+  datasource:
+#    cmsSessionFactory:
+    driverClassName: org.postgresql.Driver
+#    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    user: postgres
+    password: postgres
+    # Hikari will use the above plus the following to setup connection pooling
+#    hikari:#      minimumIdle: 5
+#      maximumPoolSize: 20
+#      idleTimeout: 30000
+#      poolName: SpringBootJPAHikariCP
+#      maxLifetime: 2000000
+#      connectionTimeout: 30000
+  # JPA specific configs
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+#    hibernate:
+#      connection:
+        # Without below HikariCP uses deprecated com.zaxxer.hikari.hibernate.HikariConnectionProvider
+        # Surprisingly enough below ConnectionProvider is in hibernate-hikaricp dependency and not hibernate-core
+        # So you need to pull that dependency but, make sure to exclude it's transitive dependencies or you will end up
+        # with different versions of hibernate-core
+#        provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
+    properties:
+      hibernate:
+        allow_update_outside_transaction: true
+        ddl-auto: update
+        show_sql: true
+        format_sql: true
+        use_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        id:
+#          new_generator_mappings: true
+        default_schema: cms
+        search:
+          autoregister_listeners: false
+        bytecode:
+          use_reflection_optimizer: false
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+  aop:
+    proxy-target-class: true
+
+logging:
+  config: classpath:logback-spring.xml
+  http:
+    enabled: true
+    log-level: debug
+    log-body: true
+    use-logstash: false
+    exclude-prefixes:
+      - ${server.servlet.context-path:}/swagger-ui
+      - ${server.servlet.context-path:}/swagger-resources
+      - ${server.servlet.context-path:}/v2/api-docs
+      - ${server.servlet.context-path:}/actuator
+      - ${server.servlet.context-path:}/favicon.ico
+  level:
+    '[root]': debug
+  pattern:
+    console: >-
+      [%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint}]
+      %clr(%-5p)
+      [%clr(%15.15t){faint}]
+      %clr(%mdc{prId}){faint}
+      %clr(%40.40c{0}){cyan}
+      [%clr(%X{traceId:--})]
+      %clr(- %m%n){faint}
+
+---
+
+spring:
+  application:
+    name: '@project.artifactId@'
+  config:
+    activate:
+      on-profile: logstash
